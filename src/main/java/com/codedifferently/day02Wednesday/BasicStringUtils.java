@@ -40,12 +40,28 @@ public class BasicStringUtils {
     }
 
     /**
-     * @param str string input from client
+     * @param //str string input from client
      * @return string with identical contents, with each word individually in reverse order
      */
-    public static String reverseWords(String str) { //reverse words in current position.
 
-        return null;
+    public static String reverseSingleWord(String word) { // Method called with reverseWords
+        String[] split = word.split("");
+        for(int i = 0; i < split.length/2; i++) {
+            String curChar = split[i];
+            split[i] = split[split.length -i -1];
+            split[split.length -i -1] = curChar;
+        }
+        return String.join("", split) + " ";
+    }
+
+    public static String reverseWords(String str) { //reverse words in current position.
+        String revSentence = "";
+        String[] splitSentence = str.split(" ");
+
+        for(int i = 0; i < splitSentence.length; i++) {
+            revSentence += reverseSingleWord(splitSentence[i]);
+        }
+        return revSentence.trim();
     }
 
     /**
@@ -53,7 +69,7 @@ public class BasicStringUtils {
      * @return string with identical contents, in reverse order, with first character capitalized
      */
     public static String reverseThenCamelCase(String str) {
-        return null;
+        return camelCase(reverse(str));
     }
 
 
@@ -62,7 +78,7 @@ public class BasicStringUtils {
      * @return string with identical contents excluding first and last character
      */
     public static String removeFirstAndLastCharacter(String str) {
-        return null;
+        return str.substring(1, str.length() - 1);
     }
 
     /**
@@ -70,6 +86,17 @@ public class BasicStringUtils {
      * @return string with identical characters, each with opposite casing
      */
     public static String invertCasing(String str) {
-        return null;
+        String changedCase = "";
+        char[] letters = str.toCharArray();
+        for(int i = 0; i < letters.length; i++) {
+            if(Character.isUpperCase(letters[i])) {
+                changedCase += Character.toLowerCase(letters[i]);
+            }
+            else if (Character.isLowerCase(letters[i])) {
+                changedCase += Character.toUpperCase(letters[i]);
+            }
+            else changedCase += " ";
+        }
+        return changedCase;
     }
 }
