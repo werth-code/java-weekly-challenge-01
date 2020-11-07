@@ -54,12 +54,12 @@ public class ArrayUtils {
 
         Arrays.sort(objectArray); //sort the array so we can see consecutive numbers.
 
-        for(int i = 1; i < objectArray.length -1; i++) { //start at 1 because we assigned variables to first ele.
+        for(int i = 1; i < objectArray.length -1; i++) { //start at 1 because we assigned variables to first ele. End at -1 because we cant find i+1 if we go to the end.
             currentNumber = (Integer) objectArray[i];
             Integer nextNumber = (Integer) objectArray[i + 1];
 
             if (nextNumber.equals(currentNumber)) numCount++;
-            else numCount = 1;
+            else numCount = 1;                          //The number needs to reset to 1, not 0 here. Since we are asking for the number ahead, we need to add one for the current as well.
 
             if (numCount > highCount) {
                 highCount = numCount;
@@ -77,7 +77,26 @@ public class ArrayUtils {
      * given an array of objects, named `objectArray` return the least frequently occuring object in the array
      */
     public static Object getLeastCommon(Object[] objectArray) {
-        return null;
+        Integer numberFrequencyCounter = objectArray.length; //
+        Integer lowestFrequencyCounter = objectArray.length; //
+        Integer leastFreqNum = null;
+        Integer currentNumber;
+
+        Arrays.sort(objectArray);
+
+        for(int i = 1; i < objectArray.length -1; i++) {
+            currentNumber = (Integer) objectArray[i];
+            Integer nextNumber = (Integer) objectArray[i + 1];
+
+            if(nextNumber.equals(currentNumber)) numberFrequencyCounter--;
+            else numberFrequencyCounter = objectArray.length;
+
+            if(numberFrequencyCounter < lowestFrequencyCounter) { ////// wont quite work because it always starts lower!
+                leastFreqNum = currentNumber;
+                lowestFrequencyCounter = numberFrequencyCounter; //THIS SEEMS LIKE ITS WRONG.. LOOK INTO IT.
+            }
+        }
+        return leastFreqNum;
     }
 
     /**
@@ -86,7 +105,7 @@ public class ArrayUtils {
      * @return an array containing all elements in `objectArray` and `objectArrayToAdd`
      * given two arrays `objectArray` and `objectArrayToAdd`, return an array containing all elements in `objectArray` and `objectArrayToAdd`
      */
-    public static Object[] mergeArrays(Object[] objectArray, Object[] objectArrayToAdd) { //WALK THROUGH THIS UNTIL YOU UNDERSTAND! Probably count simple add to the original arr.
+    public static Object[] mergeArrays(Object[] objectArray, Object[] objectArrayToAdd) { //WALK THROUGH THIS UNTIL YOU UNDERSTAND!
                 Object[] newArray = new Object[objectArray.length + objectArrayToAdd.length];
                 System.arraycopy(objectArray, 0, newArray, 0, objectArray.length); //add first arr at 0 pos.
                 System.arraycopy(objectArrayToAdd, 0, newArray, objectArray.length, objectArrayToAdd.length); // add sec arr at first arr.length - after first arr.
