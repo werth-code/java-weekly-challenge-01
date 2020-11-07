@@ -11,7 +11,7 @@ public class ArrayUtils {
      */
     public static Integer getNumberOfOccurrences(Object[] objectArray, Object objectToCount) { //Works
         Integer occurs = 0;
-        for(int i =0; i < objectArray.length; i++) {
+        for(int i = 0; i < objectArray.length; i++) {
             if(objectArray[i].equals(objectToCount)) occurs++;
         }
         return occurs;
@@ -46,7 +46,7 @@ public class ArrayUtils {
      */
     //sort the array. then as you loop you will be able to grab each number side by side.
     //split the array into pieces and get the length of each section?
-    public static Object getMostCommon(Object[] objectArray) { //******************NOT WORKING*********************
+    public static Object getMostCommon(Object[] objectArray) {
         Integer numCount = 1; // numberFrequencyCounter
         Integer highCount = 1; // highestFrequencyCounter
         Integer freqNum = null;
@@ -54,7 +54,7 @@ public class ArrayUtils {
 
         Arrays.sort(objectArray); //sort the array so we can see consecutive numbers.
 
-        for(int i = 1; i < objectArray.length -1; i++) { //start at 1 because we assigned variables to first ele. End at -1 because we cant find i+1 if we go to the end.
+        for(int i = 0; i < objectArray.length -1; i++) { //start at 1 because we assigned variables to first ele. End at -1 because we cant find i+1 if we go to the end.
             currentNumber = (Integer) objectArray[i];
             Integer nextNumber = (Integer) objectArray[i + 1];
 
@@ -67,6 +67,8 @@ public class ArrayUtils {
             }
 
         }
+        System.out.println(numCount);
+        System.out.println(highCount);
         return freqNum;
     }
 
@@ -77,26 +79,19 @@ public class ArrayUtils {
      * given an array of objects, named `objectArray` return the least frequently occuring object in the array
      */
     public static Object getLeastCommon(Object[] objectArray) {
-        Integer numberFrequencyCounter = objectArray.length; //
-        Integer lowestFrequencyCounter = objectArray.length; //
-        Integer leastFreqNum = null;
-        Integer currentNumber;
+        Object least = null;
+        int numberLeast = 0;
 
-        Arrays.sort(objectArray);
+        for(int i = 0; i < objectArray.length; i++) {
+            Object temp = objectArray[i];
+            int currentLeast = getNumberOfOccurrences(objectArray, temp);
 
-        for(int i = 1; i < objectArray.length -1; i++) {
-            currentNumber = (Integer) objectArray[i];
-            Integer nextNumber = (Integer) objectArray[i + 1];
-
-            if(nextNumber.equals(currentNumber)) numberFrequencyCounter--;
-            else numberFrequencyCounter = objectArray.length;
-
-            if(numberFrequencyCounter < lowestFrequencyCounter) { ////// wont quite work because it always starts lower!
-                leastFreqNum = currentNumber;
-                lowestFrequencyCounter = numberFrequencyCounter; //THIS SEEMS LIKE ITS WRONG.. LOOK INTO IT.
+            if((numberLeast == 0) || (currentLeast < numberLeast)) {
+                numberLeast = currentLeast;
+                least = temp;
             }
         }
-        return leastFreqNum;
+        return least;
     }
 
     /**

@@ -42,7 +42,7 @@ public class ArrayUtilsTest {
     public void getMostCommonTest() {
         // Given
         Integer expected = 7;
-        Integer[] inputArray = {1, 2, 7, 8, 4, 5, 7, 0, 9, 8, 7};
+        Integer[] inputArray = {1, 2, 7, 8, 4, 5, 7, 0, 9, 7, 8};
 
         // When
         Integer actual = (Integer) ArrayUtils.getMostCommon(inputArray);
