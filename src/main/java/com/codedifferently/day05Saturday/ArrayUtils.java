@@ -50,25 +50,23 @@ public class ArrayUtils {
         Integer numCount = 1; // numberFrequencyCounter
         Integer highCount = 1; // highestFrequencyCounter
         Integer freqNum = null;
-        Integer currentNumber;
 
         Arrays.sort(objectArray); //sort the array so we can see consecutive numbers.
 
         for(int i = 0; i < objectArray.length -1; i++) { //start at 1 because we assigned variables to first ele. End at -1 because we cant find i+1 if we go to the end.
-            currentNumber = (Integer) objectArray[i];
+            Integer currentNumber = (Integer) objectArray[i];
             Integer nextNumber = (Integer) objectArray[i + 1];
 
             if (nextNumber.equals(currentNumber)) numCount++;
-            else numCount = 1;                          //The number needs to reset to 1, not 0 here. Since we are asking for the number ahead, we need to add one for the current as well.
-
-            if (numCount > highCount) {
-                highCount = numCount;
-                freqNum = currentNumber;
-            }
-
+            else {
+                if (numCount > highCount) {
+                    highCount = numCount;
+                    freqNum = currentNumber;
+                }
+                numCount = 1;
+            }                          //The number needs to reset to 1, not 0 here. Since we are asking for the number ahead, we need to add one for the current as well.
         }
-        System.out.println(numCount);
-        System.out.println(highCount);
+
         return freqNum;
     }
 
@@ -79,19 +77,42 @@ public class ArrayUtils {
      * given an array of objects, named `objectArray` return the least frequently occuring object in the array
      */
     public static Object getLeastCommon(Object[] objectArray) {
-        Object least = null;
-        int numberLeast = 0;
+        Integer numCount = 1; // numberFrequencyCounter
+        Integer highCount = objectArray.length -1; // highestFrequencyCounter
+        Integer leastFreqNum = null;
 
-        for(int i = 0; i < objectArray.length; i++) {
-            Object temp = objectArray[i];
-            int currentLeast = getNumberOfOccurrences(objectArray, temp);
+        Arrays.sort(objectArray);
 
-            if((numberLeast == 0) || (currentLeast < numberLeast)) {
-                numberLeast = currentLeast;
-                least = temp;
+        for(int i = 0; i < objectArray.length -1; i++) {
+            Integer currentNumber = (Integer) objectArray[i];
+            Integer nextNumber = (Integer) objectArray[i + 1];
+
+            if (nextNumber.equals(currentNumber)) {
+                numCount++;
+            } else {
+                if (numCount < highCount) {
+                    highCount = numCount;
+                    leastFreqNum = currentNumber;
+                }
+                numCount = 1;
             }
         }
-        return least;
+        return leastFreqNum;
+
+
+//        Object least = null;
+//        int numberLeast = 0;
+//
+//        for(int i = 0; i < objectArray.length; i++) {
+//            Object temp = objectArray[i];
+//            int currentLeast = getNumberOfOccurrences(objectArray, temp);
+//
+//            if((numberLeast == 0) || (currentLeast < numberLeast)) {
+//                numberLeast = currentLeast;
+//                least = temp;
+//            }
+//        }
+//        return least;
     }
 
     /**
